@@ -1,0 +1,16 @@
+﻿{
+    "name": "校缘",
+    "short_name": "校缘",
+    "description": "真实的大学生活分享平台",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1890ff",
+    "icons": [
+        {
+            "src": "/pwa-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
