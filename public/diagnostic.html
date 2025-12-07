@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>诊断页面</title>
+  <style>
+    body { margin: 0; padding: 20px; font-family: Arial; }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>网站诊断</h1>
+  <div id="test1">
+    <h2>1. 静态HTML测试 <span id="static-test">❌</span></h2>
+    <p>如果你能看到这段文字，说明HTML加载正常。</p>
+    <script>
+      document.getElementById('static-test').textContent = '✅';
+      document.getElementById('static-test').className = 'success';
+    </script>
+  </div>
+  
+  <div id="test2">
+    <h2>2. JavaScript测试 <span id="js-test">❌</span></h2>
+    <button onclick="document.getElementById('js-test').textContent='✅';document.getElementById('js-test').className='success'">
+      点击测试JS
+    </button>
+  </div>
+  
+  <div id="test3">
+    <h2>3. 控制台测试</h2>
+    <p>按F12打开开发者工具，查看Console是否有错误。</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+﻿// src/services/authService.ts
+import api from "./api";
+
+const authService = {
+  // 发送验证码
+  async sendVerificationCode(email: string) {
+    try {
+      const response = await api.post("/auth/send-verification-code", { email });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "发送验证码失败");
+    }
+  },
+
+  // 注册
+  async register(userData: any) {
+    try {
+      const response = await api.post("/auth/register", userData);
+      return response.data;
+    } catch (error: any) {
+      const message = error.response?.data?.message || error.message || "注册失败";
+      throw new Error(message);
+    }
+  },
+
+  // 登录
+  async login(username: string, password: string) {
+    try {
+      const response = await api.post("/auth/login", { username, password });
+      if (response.data.success && response.data.data.token) {
+        localStorage.setItem("token", response.data.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.data.user));
+      }
+      return response.data;
+    } catch (error: any) {
+      const message = error.response?.data?.message || error.message || "登录失败";
+      throw new Error(message);
+    }
+  },
+
+  // 登出
+  logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  },
+
+  // 获取当前用户
+  getCurrentUser() {
+    const userStr = localStorage.getItem("user");
+    return userStr ? JSON.parse(userStr) : null;
+  },
+
+  // 获取token
+  getToken() {
+    return localStorage.getItem("token");
+  },
+
+  // 验证邮箱
+  async verifyEmail(token: string) {
+    try {
+      const response = await api.get(`/auth/verify-email?token=${token}`);
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "邮箱验证失败");
+    }
+  },
+
+  // 重置密码请求
+  async requestPasswordReset(email: string) {
+    try {
+      const response = await api.post("/auth/request-password-reset", { email });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "请求重置密码失败");
+    }
+  },
+
+  // 重置密码
+  async resetPassword(token: string, newPassword: string) {
+    try {
+      const response = await api.post("/auth/reset-password", { token, newPassword });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "重置密码失败");
+    }
+  }
+};
+
+export default authService;
