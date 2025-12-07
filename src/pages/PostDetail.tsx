@@ -108,7 +108,7 @@ export default function PostDetail() {
                 icon={<MinusOutlined />}
                 onClick={() => handleEvaluate('neutral')}
               >
-                还行 ({post.evaluationStats.neutrals})
+                中立 ({post.evaluationStats.neutrals})
               </Button>
               <Button
                 icon={<DislikeOutlined />}
